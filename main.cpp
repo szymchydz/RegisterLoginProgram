@@ -88,11 +88,7 @@ void passwordChange (User users[], int usersCount, int loggedUserId)
 
     string userNewPassword;
 
-<<<<<<< HEAD
-    cout << "Podaj nowe haslo: ";
-=======
     cout << "Podaj nowe userPassword: ";
->>>>>>> origin/master
     cin >> userNewPassword;
 
     for ( int i = 0; i < loggedUserId; i++)
@@ -112,11 +108,7 @@ int main()
     int loggedUserId = 0;
     int usersCount = 0;
 
-<<<<<<< HEAD
     char choice;
-=======
-    char wybor;
->>>>>>> origin/master
 
     while (1)
     {
@@ -130,7 +122,7 @@ int main()
             cout << "9. Zakoncz program" << endl;
             cout << "........................" << endl;
             cout << "Twoj wybor: ";
-<<<<<<< HEAD
+
             cin >> choice;
 
             if (choice == '1')
@@ -142,19 +134,6 @@ int main()
                 loggedUserId = userSignIn (users, usersCount);
             }
             else if (choice == '9')
-=======
-            cin >> wybor;
-
-            if (wybor == '1')
-            {
-                usersCount = userRegistration (users,usersCount);
-            }
-            else if (wybor == '2')
-            {
-                loggedUserId = userSignIn (users, usersCount);
-            }
-            else if (wybor == '9')
->>>>>>> origin/master
             {
                 exit(0);
             }
@@ -164,7 +143,7 @@ int main()
             system ("cls");
             cout << "1. Zmiana hasla" << endl;
             cout << "2. Wylogowanie" << endl;
-<<<<<<< HEAD
+
             cin >> choice;
 
             if (choice == '1')
@@ -172,15 +151,6 @@ int main()
                 passwordChange (users, usersCount, loggedUserId);
             }
             else if (choice == '2')
-=======
-            cin >> wybor;
-
-            if (wybor == '1')
-            {
-                passwordChange (users, usersCount, loggedUserId);
-            }
-            else if (wybor == '2')
->>>>>>> origin/master
             {
                 loggedUserId = 0;
             }
