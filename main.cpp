@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+#include <vector>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ struct User
     string userName,  userPassword;
 };
 
-int userSignIn (User currentUsers[], int usersCount)
+int userSignIn (vector <User> &currentUser, int currentUsersCount)
 {
     string userName, userPassword;
 
@@ -17,19 +18,19 @@ int userSignIn (User currentUsers[], int usersCount)
     cin >> userName;
     int i = 0;
 
-    while (i < usersCount)
+    while (i < currentUsersCount)
     {
-        if (currentUsers[i].userName == userName)
+        if (currentUser[i].userName == userName)
         {
             for (int attempts = 0; attempts < 3; attempts++)
             {
                 cout << "Podaj haslo uzytkownika.Pozostalo prob " << 3 - attempts <<": ";
                 cin >> userPassword;
-                if (currentUsers[i].userPassword == userPassword)
+                if (currentUser[i].userPassword == userPassword)
                 {
                     cout << "Zalogowales sie.";
                     Sleep(1000);
-                    return currentUsers[i].id;
+                    return currentUser[i].id;
                 }
             }
             cout << "Odczekaj 3 sekundy na odblokowanie." << endl;
@@ -48,7 +49,7 @@ int userSignIn (User currentUsers[], int usersCount)
     return 0;
 }
 
-int userRegistration (User currentUsers[], int usersCount)
+int userRegistration (vector <User> &currentUser, int currentUsersCount)
 {
     string userName, userPassword;
 
@@ -56,9 +57,9 @@ int userRegistration (User currentUsers[], int usersCount)
     cin >> userName;
     int i = 0;
 
-    while (i < usersCount)
+    while (i < currentUsersCount)
     {
-        if (currentUsers[i].userName == userName)
+        if (currentUser[i].userName == userName)
         {
             cout << "Taki uzytkownik istnieje. Wpisz inna nazwe uzytkownika: ";
             cin >> userName;
@@ -72,18 +73,22 @@ int userRegistration (User currentUsers[], int usersCount)
     cout << "Podaj haslo: ";
     cin >> userPassword;
 
-    currentUsers[usersCount].userName = userName;
-    currentUsers[usersCount].userPassword = userPassword;
-    currentUsers[usersCount].id = usersCount + 1;
+    User newUser;
+    newUser.userName = userName;
+    newUser.userPassword = userPassword;
+    newUser.id = currentUsersCount + 1;
+
+    currentUser.push_back(newUser);
+    currentUsersCount++;
 
     cout << "Konto zostalo zalozone";
     Sleep(1000);
 
-    return usersCount + 1;
+    return currentUsersCount;
 }
 
 
-void passwordChange (User currentUsers[], int usersCount, int loggedUserId)
+void passwordChange (vector <User> &currentUser, int currentUsersCount, int loggedUserId)
 {
 
     string userNewPassword;
@@ -91,20 +96,22 @@ void passwordChange (User currentUsers[], int usersCount, int loggedUserId)
     cout << "Podaj nowe userPassword: ";
     cin >> userNewPassword;
 
-    for ( int i = 0; i < loggedUserId; i++)
+    for ( User &user : currentUser)
     {
-        if (currentUsers[i].id == loggedUserId)
+        if (user.id == loggedUserId)
         {
-            currentUsers[i].userPassword = userNewPassword;
+            user.userPassword = userNewPassword;
             cout << "Haslo zostalo zmienione.";
             Sleep(1500);
+            return;
         }
     }
 }
 
 int main()
 {
-    User currentUsers[100];
+    vector<User> currentUser;
+
     int loggedUserId = 0;
     int currentUsersCount = 0;
 
@@ -127,11 +134,11 @@ int main()
 
             if (choice == '1')
             {
-                currentUsersCount = userRegistration (currentUsers,usersCount);
+                currentUsersCount = userRegistration (currentUser,currentUsersCount);
             }
             else if (choice == '2')
             {
-                loggedUserId = userSignIn (currentUsers, usersCount);
+                loggedUserId = userSignIn (currentUser, currentUsersCount);
             }
             else if (choice == '9')
             {
@@ -148,7 +155,7 @@ int main()
 
             if (choice == '1')
             {
-                passwordChange (currentUsers, usersCount, loggedUserId);
+                passwordChange (currentUser, currentUsersCount, loggedUserId);
             }
             else if (choice == '2')
             {
