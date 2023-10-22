@@ -9,7 +9,7 @@ struct User
     string userName,  userPassword;
 };
 
-int userSignIn (User users[], int usersCount)
+int userSignIn (User currentUsers[], int usersCount)
 {
     string userName, userPassword;
 
@@ -19,17 +19,17 @@ int userSignIn (User users[], int usersCount)
 
     while (i < usersCount)
     {
-        if (users[i].userName == userName)
+        if (currentUsers[i].userName == userName)
         {
             for (int attempts = 0; attempts < 3; attempts++)
             {
                 cout << "Podaj haslo uzytkownika.Pozostalo prob " << 3 - attempts <<": ";
                 cin >> userPassword;
-                if (users[i].userPassword == userPassword)
+                if (currentUsers[i].userPassword == userPassword)
                 {
                     cout << "Zalogowales sie.";
                     Sleep(1000);
-                    return users[i].id;
+                    return currentUsers[i].id;
                 }
             }
             cout << "Odczekaj 3 sekundy na odblokowanie." << endl;
@@ -48,7 +48,7 @@ int userSignIn (User users[], int usersCount)
     return 0;
 }
 
-int userRegistration (User users[], int usersCount)
+int userRegistration (User currentUsers[], int usersCount)
 {
     string userName, userPassword;
 
@@ -58,7 +58,7 @@ int userRegistration (User users[], int usersCount)
 
     while (i < usersCount)
     {
-        if (users[i].userName == userName)
+        if (currentUsers[i].userName == userName)
         {
             cout << "Taki uzytkownik istnieje. Wpisz inna nazwe uzytkownika: ";
             cin >> userName;
@@ -72,9 +72,9 @@ int userRegistration (User users[], int usersCount)
     cout << "Podaj haslo: ";
     cin >> userPassword;
 
-    users[usersCount].userName = userName;
-    users[usersCount].userPassword = userPassword;
-    users[usersCount].id = usersCount + 1;
+    currentUsers[usersCount].userName = userName;
+    currentUsers[usersCount].userPassword = userPassword;
+    currentUsers[usersCount].id = usersCount + 1;
 
     cout << "Konto zostalo zalozone";
     Sleep(1000);
@@ -83,23 +83,19 @@ int userRegistration (User users[], int usersCount)
 }
 
 
-void passwordChange (User users[], int usersCount, int loggedUserId)
+void passwordChange (User currentUsers[], int usersCount, int loggedUserId)
 {
 
     string userNewPassword;
 
-<<<<<<< HEAD
-    cout << "Podaj nowe haslo: ";
-=======
     cout << "Podaj nowe userPassword: ";
->>>>>>> origin/master
     cin >> userNewPassword;
 
     for ( int i = 0; i < loggedUserId; i++)
     {
-        if (users[i].id == loggedUserId)
+        if (currentUsers[i].id == loggedUserId)
         {
-            users[i].userPassword = userNewPassword;
+            currentUsers[i].userPassword = userNewPassword;
             cout << "Haslo zostalo zmienione.";
             Sleep(1500);
         }
@@ -108,15 +104,11 @@ void passwordChange (User users[], int usersCount, int loggedUserId)
 
 int main()
 {
-    User users[100];
+    User currentUsers[100];
     int loggedUserId = 0;
-    int usersCount = 0;
+    int currentUsersCount = 0;
 
-<<<<<<< HEAD
     char choice;
-=======
-    char wybor;
->>>>>>> origin/master
 
     while (1)
     {
@@ -130,31 +122,18 @@ int main()
             cout << "9. Zakoncz program" << endl;
             cout << "........................" << endl;
             cout << "Twoj wybor: ";
-<<<<<<< HEAD
+
             cin >> choice;
 
             if (choice == '1')
             {
-                usersCount = userRegistration (users,usersCount);
+                currentUsersCount = userRegistration (currentUsers,usersCount);
             }
             else if (choice == '2')
             {
-                loggedUserId = userSignIn (users, usersCount);
+                loggedUserId = userSignIn (currentUsers, usersCount);
             }
             else if (choice == '9')
-=======
-            cin >> wybor;
-
-            if (wybor == '1')
-            {
-                usersCount = userRegistration (users,usersCount);
-            }
-            else if (wybor == '2')
-            {
-                loggedUserId = userSignIn (users, usersCount);
-            }
-            else if (wybor == '9')
->>>>>>> origin/master
             {
                 exit(0);
             }
@@ -164,23 +143,14 @@ int main()
             system ("cls");
             cout << "1. Zmiana hasla" << endl;
             cout << "2. Wylogowanie" << endl;
-<<<<<<< HEAD
+
             cin >> choice;
 
             if (choice == '1')
             {
-                passwordChange (users, usersCount, loggedUserId);
+                passwordChange (currentUsers, usersCount, loggedUserId);
             }
             else if (choice == '2')
-=======
-            cin >> wybor;
-
-            if (wybor == '1')
-            {
-                passwordChange (users, usersCount, loggedUserId);
-            }
-            else if (wybor == '2')
->>>>>>> origin/master
             {
                 loggedUserId = 0;
             }
